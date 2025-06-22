@@ -86,9 +86,9 @@ public class App {
 
         System.out.print(initialMessage);
 
-        while (!validInput) {
+        do {
             try {
-                input = scanner.nextInt();
+                input = Integer.parseInt(scanner.nextLine()); // Get input and convert it to an integer
 
                 // Checking if the current input is within the bound restrictions
                 if (input >= lowerBound && input <= upperBound) {
@@ -97,11 +97,10 @@ public class App {
                     System.out.print(errorMessage);
                 }
 
-            } catch (InputMismatchException e) {    // Catches wrongly inputted values such as letters and symbols
+            } catch (InputMismatchException | NumberFormatException e) {    // Catches wrongly inputted values such as letters and symbols
                 System.out.print(errorMessage);
-                scanner.next();     // Prevents infinite loop
             }
-        }
+        } while (!validInput);
 
         return input;
     }
