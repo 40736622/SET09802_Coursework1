@@ -12,12 +12,13 @@ public class App {
         Scanner scanner = new Scanner(System.in);
         DecimalFormat decimalFormat = new DecimalFormat("0.#"); // Formats floats to remove numbers after the tenth place
 
+        // Get user input for the row and column of the Matrix
         row = validateInput(scanner, LOWER_BOUND, UPPER_BOUND, InputType.ROW);
         col = validateInput(scanner, LOWER_BOUND, UPPER_BOUND, InputType.COLUMN);
 
         System.out.println();
 
-        int[][] randomMatrix = MatrixUtils.createRandomMatrix(row, col);
+        int[][] randomMatrix = MatrixUtils.createRandomMatrix(row, col); // Create random matrix
 
         Matrix matrix = new Matrix(randomMatrix);
         MatrixUtils.printMatrix(matrix);
@@ -26,12 +27,16 @@ public class App {
         float[] columnAverages = matrix.calculateColumnAverages();
         float matrixAverage = matrix.calculateMatrixAverage();
 
-        System.out.printf("Row Average: %s\nColumn Average: %s\nMatrix Average: %.2f\n",
+        System.out.printf("Row Averages: %s\nColumn Averages: %s\nMatrix Average: %.2f\n",
                 Arrays.toString(rowAverages), Arrays.toString(columnAverages), matrixAverage);
 
         rowAverageSecondLargestIndex = MatrixUtils.findSecondLargest(rowAverages);
         colAverageSecondLargestIndex = MatrixUtils.findSecondLargest(columnAverages);
 
+        System.out.println();
+        MatrixUtils.printMatrixWithAverages(matrix, rowAverages, columnAverages, matrixAverage);
+
+        System.out.println();
         System.out.printf("The row with the second largest average (%s) is the %s row (N=%d)\n",
                 decimalFormat.format(rowAverages[rowAverageSecondLargestIndex]),
                 formatPosition(rowAverageSecondLargestIndex + 1), rowAverageSecondLargestIndex + 1);
@@ -49,10 +54,6 @@ public class App {
         System.out.printf("The number of cells with values -1 is %d\n", modifiedMatrixCount[0]);
         System.out.printf("The number of cells with values +1 is %d\n", modifiedMatrixCount[1]);
         System.out.printf("The number of cells with values 0 is %d\n", modifiedMatrixCount[2]);
-
-        System.out.println();
-
-        MatrixUtils.printMatrixWithAverages(matrix, rowAverages, columnAverages, matrixAverage);
 
     }
 
